@@ -1,3 +1,4 @@
+'''
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import numpy as np
@@ -18,3 +19,15 @@ ax.set_xticks(np.arange(-.5, 10, 1));
 ax.set_yticks(np.arange(-.5, 10, 1));
 
 plt.show()
+'''
+
+import random
+
+agent_names = ['AgentA', 'AgentB']
+agent_pos = [0, 4, 8, 12]
+
+
+pos = { agent_names[i]: agent_pos[i] for i in range(len(agent_names)) }
+
+print(pos)
+

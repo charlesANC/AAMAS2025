@@ -1,6 +1,7 @@
 from miningenv import MiningEnv
 from random import random, randint
 from qlrandom import QLRandom
+import pickle
 
 class MultiPlayersGameControl:
   def __init__(
@@ -12,6 +13,8 @@ class MultiPlayersGameControl:
 	lr=0.01,					# Learning rate
 	max_frames=1e6,
 	log_interval=1e4,
+   save_agents_models=False,
+   models_path="c:\\temp\\"
   ):
     self.agents = agents
     self.reward_type = reward_type
@@ -25,6 +28,9 @@ class MultiPlayersGameControl:
       agent.initialize_q_table()
       
     self.logs = {'frames': [], 'return': [], 'discounted_return': [], 'predicted_return': [], 'predicted_discounted_return': []}
+    
+    self.save_agents_models = save_agents_models
+    self.models_path = models_path
 
   def create_env_for_training(self, agent, opponent):
     env = MiningEnv([agent.get_name(), opponent.get_name()])
@@ -60,6 +66,8 @@ class MultiPlayersGameControl:
     eps_num = 0
     frames = 0
     
+    max_return = -999
+    
     opponent = QLRandom('R')    
     env = self.create_env_for_training(agent, opponent)
 
@@ -83,7 +91,12 @@ class MultiPlayersGameControl:
 
         # Log results periodically
         if (frames + eps_len) % self.log_interval == 0:
-          self.log_policy(agent, frames + eps_len, print_logs)
+          this_return = self.log_policy(agent, frames + eps_len, print_logs)
+          if this_return >= max_return:
+              max_return = this_return
+              if self.save_agents_models:
+                  print(f'Saving {agent.get_name()} model at {frames + eps_len}...')
+                  self.save_agent_model(agent)
 
         if done:
           frames += eps_len
@@ -93,7 +106,7 @@ class MultiPlayersGameControl:
         
         op_state = op_next_state
         op_rm_belief = op_next_rm_belief
-        eps_len += 1
+        # eps_len += 1 -- do not increment episodes when opponent acction
         
         if done:
           frames += eps_len
@@ -121,6 +134,8 @@ class MultiPlayersGameControl:
       print("Agent: %s -- Frames: %.2f, R: %.2f, Disc R: %.2f -- Pred R: %.2f, Disc Pred R: %.2f"%(agent.get_name(), 
             frames, returnn, discounted_returnn, predicted_returnn, 
                 predicted_discounted_returnn))
+      
+    return returnn
 
 
   # Evaluate one episode of the current policy.
@@ -192,3 +207,7 @@ class MultiPlayersGameControl:
         rm_believes[agent.get_name()] = next_rm_belief        
 
     return None
+
+  def save_agent_model(self, agent):
+      with open(f'{self.models_path}\\{agent.get_name()}_model.pck', 'wb') as model_file:
+          pickle.dump(agent, model_file, protocol=pickle.HIGHEST_PROTOCOL)            

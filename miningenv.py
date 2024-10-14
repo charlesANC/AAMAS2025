@@ -49,13 +49,15 @@ class MiningEnv:
   UP = 2
   DOWN = 3
   DIG = 4
+  
+  agents_initial_pos = [0, 4, 8, 12]
 
   def __init__(self, agent_names, max_steps=500, movement_cost=0.02, show_board=False, collision=True):
     self.max_steps = max_steps
     self.movement_cost = movement_cost
     self.agent_names = agent_names
-
-    self.pos = { name: 0 for name in self.agent_names }
+    
+    self.pos = { self.agent_names[i]: self.agents_initial_pos[i] for i in range(len(self.agent_names)) }
     self.rm_state = { name: 0 for name in self.agent_names }
     self.visited = { name: np.array([False for i in range(6)]) for name in self.agent_names }
     self.steps = 0

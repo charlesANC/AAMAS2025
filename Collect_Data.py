@@ -1,14 +1,17 @@
 from qlperfectrm import QLPerfectRM
 from qlperfectrm2 import QLPerfectRM2
 from qlnorm import QLNoRM
+from qlnorm2 import QLNoRM2
 from qlindependentbelief import QLIndependentBelief
+from qlindependentbelief2 import QLIndependentBelief2
 from qlbeliefthresholding import QLBeliefThresholding
+from qlbeliefthresholding2 import QLBeliefThresholding2
 from noad_gamecontrol import NoAdGameControl
 
 import pickle
 
 
-file_name = "QLIndependentBelief_DecFalse"
+file_name = "QLBeliefThresholding2"
 
 #agent1 = QLPerfectRM2('A')
 #agent1 = QLNoRM('A')
@@ -20,10 +23,10 @@ file_name = "QLIndependentBelief_DecFalse"
 my_data = {}
 
 
-for i in range(30):
+for i in range(10):
     print(f'Execution {i}...')
 
-    agent1 = QLIndependentBelief('A', decorrelate=False)
+    agent1 = QLPerfectRM('A')
     control = NoAdGameControl(agent1, max_frames=1e6, log_interval=10000)
     control.train(agent1, print_logs=True)
     

@@ -29,16 +29,13 @@ def add_mean_sup_inf(my_data, confidence_interval):
     my_data['inf'] = infs
 
 
-file_name = "QLBeliefThresholding2"
+file_name = "QLBeliefThresholding_AD"
 
 with open(f'C:\\temp\\aamas2025\\{file_name}.pck', 'rb') as my_file:
     my_data = pickle.load(my_file)
     
    
-print()   
-
 my_df = pd.DataFrame.from_dict(my_data).T
-print(my_df)
 
 
 add_mean_sup_inf(my_df, confidence_interval=0.95)
@@ -47,14 +44,30 @@ my_df['sup'] = my_df['sup'].fillna(0)
 my_df['inf'] = my_df['inf'].fillna(0)
 
 
-print(my_df)
-
-
-ax = sns.lineplot(data=my_df, x=my_df.index, y='mean', color='b', label='QLNoRM_3')
+ax = sns.lineplot(data=my_df, x=my_df.index, y='mean', color='b', label='QLBeliefThresholding_AD')
 ax.fill_between(my_df.index, my_df['inf'], my_df['sup'], color='b', alpha=.15)
 
 
-ax.set_title('Return')
+file_name = "QLBeliefThresholding2_AD"
+
+with open(f'C:\\temp\\aamas2025\\{file_name}.pck', 'rb') as my_file:
+    my_data2 = pickle.load(my_file)
+    
+   
+my_df2 = pd.DataFrame.from_dict(my_data2).T
+
+
+add_mean_sup_inf(my_df2, confidence_interval=0.95)
+
+my_df2['sup'] = my_df2['sup'].fillna(0)
+my_df2['inf'] = my_df2['inf'].fillna(0)
+
+
+ax = sns.lineplot(data=my_df2, x=my_df2.index, y='mean', color='r', label='QLBeliefThresholding2_AD')
+ax.fill_between(my_df2.index, my_df2['inf'], my_df2['sup'], color='r', alpha=.15)
+
+
+ax.set_title('Perfect RM - Do not observe vs Observe Opponent')
 ax.set_xlabel('Steps')
 ax.set_ylabel('Reward')
 ax.set_facecolor('whitesmoke')
