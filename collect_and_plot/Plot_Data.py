@@ -17,19 +17,19 @@ def add_mean_sup_inf(my_data, confidence_interval):
 
         
         mean_v = np.mean(values)
-        inf_v, sup_v = st.t.interval(confidence=confidence_interval, df=len(values)-1,
-                                    loc=mean_v, scale=st.sem(values))
+#        inf_v, sup_v = st.t.interval(confidence=confidence_interval, df=len(values)-1,
+#                                    loc=mean_v, scale=st.sem(values))
 
         means.append(mean_v)
-        sups.append(sup_v)
-        infs.append(inf_v)
+#        sups.append(sup_v)
+#        infs.append(inf_v)
         
     my_data['mean'] = means
-    my_data['sup'] = sups
-    my_data['inf'] = infs
+#    my_data['sup'] = sups
+#    my_data['inf'] = infs
 
 
-file_name = "QLBeliefThresholding2"
+file_name = "data_QLNorm"
 
 with open(f'C:\\temp\\aamas2025\\{file_name}.pck', 'rb') as my_file:
     my_data = pickle.load(my_file)
@@ -43,15 +43,15 @@ print(my_df)
 
 add_mean_sup_inf(my_df, confidence_interval=0.95)
 
-my_df['sup'] = my_df['sup'].fillna(0)
-my_df['inf'] = my_df['inf'].fillna(0)
+#my_df['sup'] = my_df['sup'].fillna(0)
+#my_df['inf'] = my_df['inf'].fillna(0)
 
 
 print(my_df)
 
 
 ax = sns.lineplot(data=my_df, x=my_df.index, y='mean', color='b', label='QLNoRM_3')
-ax.fill_between(my_df.index, my_df['inf'], my_df['sup'], color='b', alpha=.15)
+#ax.fill_between(my_df.index, my_df['inf'], my_df['sup'], color='b', alpha=.15)
 
 
 ax.set_title('Return')

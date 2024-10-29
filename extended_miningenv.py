@@ -32,7 +32,7 @@ import numpy as np
 # 2 = deposited gold
 
 
-class MiningEnv:
+class ExtMiningEnv:
   depot = 12
 
   has_gold = [False, False, False, False, True,
@@ -48,6 +48,8 @@ class MiningEnv:
                     0.8, 0.6, 0.6, 0.0, 0.0]
   
   relevant_squares = {2:0, 3:1, 4:2, 9:3, 15:4, 20:5, 21:6, 22:7}
+  
+  agents_initial_pos = [7, 11, 1, 13]  
 
   LEFT = 0
   RIGHT = 1
@@ -60,7 +62,7 @@ class MiningEnv:
     self.movement_cost = movement_cost
     self.agent_names = agent_names
 
-    self.pos = { name: 0 for name in self.agent_names }
+    self.pos = { self.agent_names[i]: self.agents_initial_pos[i] for i in range(len(self.agent_names)) }
     self.rm_state = { name: 0 for name in self.agent_names }
     self.visited = { name: np.array([False for i in range(8)]) for name in self.agent_names }
     self.steps = 0
@@ -81,12 +83,13 @@ class MiningEnv:
     if self.is_occupied(new_pos):
       #print(f'Colission at {new_pos}!')
       return
-
+  
     self.pos[agent_name] = new_pos
 
 
   def reset(self, agent_name):
-    self.pos[agent_name] = 0
+    agent_index = self.agent_names.index(agent_name)
+    self.pos[agent_name] = self.agents_initial_pos[agent_index]
     self.rm_state[agent_name] = 0
     self.visited[agent_name] = np.array([False for i in range(8)])
     self.steps = 0
@@ -144,11 +147,11 @@ class MiningEnv:
     # Up
     elif action == self.UP:
       if self.pos[agent_name] < 20:
-        self.move_agent(agent_name, 4)
+        self.move_agent(agent_name, 5)
     # Down
     elif action == self.DOWN:
       if self.pos[agent_name] > 4:
-        self.move_agent(agent_name, -4)
+        self.move_agent(agent_name, -5)
     # Dig
     elif action == self.DIG:
       if self.has_gold[self.pos[agent_name]] and self.rm_state[agent_name] == 0:

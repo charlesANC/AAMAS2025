@@ -1,21 +1,22 @@
-from qlperfectrm import QLPerfectRM
-from qlperfectrm2 import QLPerfectRM2
-from qlnorm import QLNoRM
-from qlindependentbelief import QLIndependentBelief
-from qlbeliefthresholding import QLBeliefThresholding
+from base_alg.qlperfectrm import QLPerfectRM
+from ext_alg.qlperfectrm2 import QLPerfectRM2
+from base_alg.qlnorm import QLNoRM
+from base_alg.qlindependentbelief import QLIndependentBelief
+from base_alg.qlbeliefthresholding import QLBeliefThresholding
 from noad_gamecontrol import NoAdGameControl
+from miningenv import MiningEnv
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 
-#agent1 = QLPerfectRM('A')
+#agent1 = QLPerfectRM('A', MiningEnv.game_model)
 #agent1 = QLPerfectRM2('A')
-#agent1 = QLNoRM('A')
-#agent1 = QLBeliefThresholding('A', movement_cost=0.02)
-agent1 = QLIndependentBelief('A', decorrelate=False)
-#agent1 = QLIndependentBelief('A', decorrelate=True)
+#agent1 = QLNoRM('A', MiningEnv.game_model)
+#agent1 = QLBeliefThresholding('A', MiningEnv.game_model, movement_cost=0.02)
+#agent1 = QLIndependentBelief('A', MiningEnv.game_model, decorrelate=False)
+agent1 = QLIndependentBelief('A', MiningEnv.game_model, decorrelate=True)
 
 
 

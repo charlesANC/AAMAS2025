@@ -1,8 +1,8 @@
-from miningenv import MiningEnv
+from extended_miningenv import ExtMiningEnv
 from no_rl_alg.qlrandom import QLRandom
 from random import random, randint
 
-class GameControl:
+class ExtGameControl:
   def __init__(
     self,
     agent1,
@@ -28,12 +28,12 @@ class GameControl:
     self.logs = {'frames': [], 'return': [], 'discounted_return': [], 'predicted_return': [], 'predicted_discounted_return': []}
 
   def create_env_for_training(self, agent):
-    random_agent = QLRandom('R', MiningEnv.game_model)
-    env = MiningEnv([agent.get_name(), random_agent.get_name()])          
+    random_agent = QLRandom('R')
+    env = ExtMiningEnv([agent.get_name(), random_agent.get_name()])
     return random_agent, env
 
   def create_env_for_duel(self, agent1, agent2):
-    env = MiningEnv([agent1.get_name(), agent2.get_name()])
+    env = ExtMiningEnv([agent1.get_name(), agent2.get_name()])
     return env
 
   # Train the RM algorithm up to `max_frames` frames.

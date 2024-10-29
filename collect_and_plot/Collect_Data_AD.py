@@ -11,11 +11,11 @@ import pickle
 
 
 agents = [
-    QLNoRM('QLNorm'),
-    QLPerfectRM('QLPerfectRM'),
-    QLBeliefThresholding("QLBeliefThresholding", movement_cost=0.02),
-    QLIndependentBelief('QLIndependentBelief_F', decorrelate=False),
-    QLIndependentBelief('QLIndependentBelief_T', decorrelate=True)    
+    QLNoRM2('QLNorm'),
+#    QLPerfectRM2('QLPerfectRM2'),
+#    QLBeliefThresholding("QLBeliefThresholding", movement_cost=0.02),
+#    QLIndependentBelief('QLIndependentBelief_F', decorrelate=False),
+#    QLIndependentBelief('QLIndependentBelief_T', decorrelate=True)    
 ]
 
 
@@ -23,10 +23,11 @@ for agent in agents:
     
     my_data = {}    
     
-    for i in range(10):
+    for i in range(1):
         print(f'{agent.get_name()} - Execution {i}...')
         
-        control = MultiPlayersGameControl([agent], max_frames=5e6, log_interval=10000, save_agents_models=(i == 0), models_path="c:\\temp\\aamas2025\\models")
+#        control = MultiPlayersGameControl([agent], max_frames=5e6, log_interval=10000, save_agents_models=(i == 0), models_path="c:\\temp\\aamas2025\\models")
+        control = MultiPlayersGameControl([agent], max_frames=20e6, log_interval=10000, save_agents_models=False, models_path="c:\\temp\\aamas2025\\models")
         control.train(agent, print_logs=True)
         
         frames = control.logs['frames']

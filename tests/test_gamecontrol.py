@@ -1,7 +1,11 @@
-from qlperfectrm import QLPerfectRM
-from qlperfectrm2 import QLPerfectRM2
-from qlnorm import QLNoRM
+from base_alg.qlperfectrm import QLPerfectRM
+from base_alg.qlindependentbelief import QLIndependentBelief
+from base_alg.qlbeliefthresholding import QLBeliefThresholding
+
+from ext_alg.qlperfectrm2 import QLPerfectRM2
+from base_alg.qlnorm import QLNoRM
 from gamecontrol import GameControl
+from miningenv import MiningEnv
 
 from scipy.special import softmax
 
@@ -23,9 +27,14 @@ def print_actions(agent, state):
     
 
 #agent1 = QLIndependentBelief('A', decorrelate=True)
-agent1 = QLPerfectRM2('A')
-agent2 = QLPerfectRM('B')
-control = GameControl(agent1, agent2, max_frames=10e6, log_interval=50000)
+
+agent1 = QLNoRM('A', MiningEnv.game_model)
+#agent1 = QLIndependentBelief('A', env.get_game_model(), decorrelate=True)
+
+#agent1 = QLBeliefThresholding('A', env.get_game_model(), movement_cost=0.02)
+agent2 = QLPerfectRM('B', MiningEnv.game_model)
+
+control = GameControl(agent1, agent2, max_frames=5e6, log_interval=50000)
 
 control.train(agent1, print_logs=True)
 

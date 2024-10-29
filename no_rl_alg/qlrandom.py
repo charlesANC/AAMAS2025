@@ -5,8 +5,8 @@ from qlrmalgo import QLRMAlgo
 # Agent who acts randomly
 # ==========================================================================================================
 class QLRandom(QLRMAlgo):
-	def __init__(self, name, **kwargs):
-		super().__init__(name, **kwargs)
+	def __init__(self, name, game_model, **kwargs):
+		super().__init__(name, game_model, **kwargs)
 
 	def get_best_action(self, state, rm_belief):
 			return randint(0,4)

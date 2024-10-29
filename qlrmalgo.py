@@ -15,13 +15,15 @@
 
 class QLRMAlgo:
 	def __init__(self,
-	  name,                 # agent's unique name
+		name,                 # agent's unique name
+		game_model,           # some information about the game    
 		reward_type="actual",	# ["actual", "predicted"]
 		discount=0.99, 				# Discount factor γ
 		eps=0.2, 					# Random action probability
 		lr=0.01,					# Learning rate
 	):
 		self.name = name
+		self.game_model = game_model
 
 		# RL Hyperparameters
 		self.reward_type = reward_type
@@ -38,7 +40,10 @@ class QLRMAlgo:
 
 	def get_name(self):
 		return self.name
-
+    
+	def get_game_model(self):
+		return self.game_model
+    
 	def get_best_action(self, state, rm_belief):
 		best_action = None
 		best_q = -99999999999
@@ -83,3 +88,18 @@ class QLRMAlgo:
 	# Override this in the subclass if needed.
 	def update_rm_belief(self, rm_belief, state, action, next_state):
 		return rm_belief, None
+    
+   # Methods created to allow agents to work on
+   # more than one environment configuration
+            
+	def get_board_lenght(self):
+		return self.get_game_model().get_board_lenght()
+            
+	def get_action_space_lenght(self):
+		return self.get_game_model().get_action_space_lenght()
+
+	def get_depot(self):
+		return self.get_game_model().get_depot()
+    
+	def get_dug_lenght(self):
+		return self.get_game_model().get_dug_lenght()    

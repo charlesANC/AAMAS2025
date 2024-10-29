@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['miningenv.py', 'test_gamecontrol.py', 'noad_gamecontrol.py', 'test_noadgamecontrol1.py', 'untitled10.py', 'mp_gamecontrol.py', 'test_mp_gamecontrol.py', 'qlperfectrm2.py', 'extended_miningenv.py', 'qlindependentbelief.py', 'Collect_Data.py', 'Plot_Data.py']
+recent_files = ['qlperfectrm.py', 'qlrmalgo.py', 'extended_miningenv.py', 'qlnorm.py', 'qlbeliefthresholding.py', 'qlindependentbelief.py', 'qlindependentbelief2.py', 'qlbeliefthresholding2.py', 'miningenv.py', 'tests\\test_gamecontrol.py']
 
 [main]
 version = 0.2.0

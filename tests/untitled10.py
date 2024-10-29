@@ -31,3 +31,5 @@ pos = { agent_names[i]: agent_pos[i] for i in range(len(agent_names)) }
 
 print(pos)
 
+print(agent_names.index('AgentB'))
+

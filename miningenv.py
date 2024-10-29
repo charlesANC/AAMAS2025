@@ -1,5 +1,6 @@
 from random import *
 import numpy as np
+from gamemodel import GameModel
 
 # A simple toy gridworld environment to test Reward Machine RL algorithms with noisy detectors.
 # ==========================================================================================================
@@ -42,6 +43,7 @@ class MiningEnv:
                     0, 0.3, 0, 0.8,
                     0, 0.6, 0, 0.8,
                     0, 0., 0, 0.8]
+  
   relevant_squares = {3:0, 5:1, 7:2, 11:3, 13:4, 15:5}
 
   LEFT = 0
@@ -51,6 +53,15 @@ class MiningEnv:
   DIG = 4
   
   agents_initial_pos = [0, 4, 8, 12]
+  
+  game_model = GameModel(
+      [LEFT, RIGHT, UP, DOWN, DIG], 
+      DIG,
+      16, 
+      depot, 
+      has_gold_model, 
+      relevant_squares)
+  
 
   def __init__(self, agent_names, max_steps=500, movement_cost=0.02, show_board=False, collision=True):
     self.max_steps = max_steps
