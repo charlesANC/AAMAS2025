@@ -1,8 +1,11 @@
-from qlperfectrm import QLPerfectRM
-from qlperfectrm2 import QLPerfectRM2
-from qlnorm import QLNoRM
-from qlbeliefthresholding import QLBeliefThresholding
+from base_alg.qlperfectrm import QLPerfectRM
+from ext_alg.qlperfectrm2 import QLPerfectRM2
+from ext_alg.qlindependentbelief2 import QLIndependentBelief2
+from base_alg.qlindependentbelief import QLIndependentBelief
+from base_alg.qlnorm import QLNoRM
+from base_alg.qlbeliefthresholding import QLBeliefThresholding
 from extended_gamecontrol import ExtGameControl
+from extended_miningenv import ExtMiningEnv
 
 from scipy.special import softmax
 
@@ -23,9 +26,10 @@ def print_actions(agent, state):
     
     
 
-#agent1 = QLIndependentBelief('A', decorrelate=True)
-agent1 = QLBeliefThresholding('A', movement_cost=0.02, board_length=25)
-agent2 = QLPerfectRM('B')
+agent1 = QLIndependentBelief2('QLIndependentBelief2_T', ExtMiningEnv.game_model, decorrelate=True)
+agent1 = QLIndependentBelief('QLIndependentBelief_T', ExtMiningEnv.game_model, decorrelate=True)
+#agent1 = QLBeliefThresholding('A', ExtMiningEnv.game_model, movement_cost=0.02)
+agent2 = QLPerfectRM('B', ExtMiningEnv.game_model)
 control = ExtGameControl(agent1, agent2, max_frames=5e6, log_interval=10000)
 
 control.train(agent1, print_logs=True)

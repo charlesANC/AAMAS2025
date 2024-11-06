@@ -48,21 +48,28 @@ def plot_line(my_data, line_label, color):
     
 
 
-my_data = load_data('C:\\temp\\aamas2025\\data_QLPerfectRM.pck')
+#my_data = load_data('C:\\temp\\aamas2025\\data_QLPerfectRM.pck')
 #my_data = load_data('C:\\temp\\aamas2025\\exp_data\\QLPerfectRM.pck')
-ax = plot_line(my_data, 'Oracle', 'red')
+#ax = plot_line(my_data, 'Oracle', 'red')
 
-my_data = load_data('C:\\temp\\aamas2025\\data_QLNorm.pck')
-ax = plot_line(my_data, 'Memory Only', 'gray')
+#my_data = load_data('C:\\temp\\aamas2025\\data_QLNorm.pck')
+#ax = plot_line(my_data, 'Memory Only', 'gray')
 
-my_data = load_data('C:\\temp\\aamas2025\\data_QLIndependentBelief_T.pck')
-plot_line(my_data, 'TDM', 'blue')
+#my_data = load_data('C:\\temp\\aamas2025\\data_QLIndependentBelief_T.pck')
+#plot_line(my_data, 'TDM', 'blue')
 
-my_data = load_data('C:\\temp\\aamas2025\\data_QLIndependentBelief_F.pck')
-plot_line(my_data, 'IBU', 'green')
+#my_data = load_data('C:\\temp\\aamas2025\\data_QLIndependentBelief_F.pck')
+#plot_line(my_data, 'IBU', 'green')
 
-ax = my_data = load_data('C:\\temp\\aamas2025\\data_QLBeliefThresholding.pck')
-plot_line(my_data, 'Naive', 'orange')
+#ax = my_data = load_data('C:\\temp\\aamas2025\\data_QLBeliefThresholding.pck')
+#plot_line(my_data, 'Naive', 'orange')
+
+
+ax = my_data = load_data('C:\\temp\\aamas2025\\data_QLIndependentBelief_T.pck')
+plot_line(my_data, 'TDM', 'red')
+
+ax = my_data = load_data('C:\\temp\\aamas2025\\data_QLIndependentBelief2_T.pck')
+plot_line(my_data, 'TDM-2', 'blue')
 
 
 
