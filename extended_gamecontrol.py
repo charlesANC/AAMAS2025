@@ -39,7 +39,7 @@ class ExtGameControl:
     return random_agent, env
 
   def create_env_for_duel(self, agent1, agent2):
-    env = ExtMiningEnv([agent1.get_name(), agent2.get_name()], max_steps=5000)
+    env = ExtMiningEnv([agent1.get_name(), agent2.get_name()])
     return env
 
   # Train the RM algorithm up to `max_frames` frames.
